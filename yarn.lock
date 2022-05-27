@@ -5800,6 +5800,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"is_js@npm:^0.9.0":
+  version: 0.9.0
+  resolution: "is_js@npm:0.9.0"
+  checksum: bf7f0fc52187eda1ca597da0a20b85c4828b9bca5f08c5f2f6dd64d437384bdc9628674c78cee510f9600050871f7d783738d35dc6f5fe80e2a8848be5fbdce9
+  languageName: node
+  linkType: hard
+
 "isarray@npm:0.0.1":
   version: 0.0.1
   resolution: "isarray@npm:0.0.1"
@@ -8906,6 +8913,7 @@ __metadata:
     file-loader: 1.1.5
     fs-extra: 3.0.1
     html-webpack-plugin: 2.29.0
+    is_js: ^0.9.0
     jest: 20.0.4
     object-assign: 4.1.1
     postcss-flexbugs-fixes: 3.2.0
