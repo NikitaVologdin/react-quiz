@@ -3,7 +3,11 @@ import classes from "./QuizCreator.css";
 import Button from "../../components/UI/Button/Button";
 import Input from "../../components/UI/Input/Input";
 import Select from "../../components/UI/Select/Select";
-import { createControl } from "../../frameworks/form/formFramework";
+import {
+  createControl,
+  validate,
+  validateForm,
+} from "../../frameworks/form/formFramework";
 
 function createOptionControl(num) {
   return createControl(
@@ -20,6 +24,7 @@ function createOptionControl(num) {
 export default class QuizCreator extends Component {
   state = {
     quiz: [],
+    isFormValid: false,
     rightAnswer: 1,
     formControls: {
       question: createControl(
@@ -39,8 +44,6 @@ export default class QuizCreator extends Component {
   };
 
   renderInputs = () => {
-    // console.log(this.state.formControls.question.label);
-
     return Object.keys(this.state.formControls).map(
       (formControlName, index) => {
         let control = this.state.formControls[formControlName];
@@ -56,7 +59,7 @@ export default class QuizCreator extends Component {
               errorMessage={control.errorMessage}
               validation={!!control.validation}
               onChange={(event) => {
-                this.changeHandler(event, formControlName);
+                this.inputChangeHandler(event, formControlName);
               }}
             />
             {index === 0 ? <hr /> : null}
@@ -66,18 +69,19 @@ export default class QuizCreator extends Component {
     );
   };
 
-  changeHandler = (event, formControlName) => {
+  inputChangeHandler = (event, formControlName) => {
     const formControls = { ...this.state.formControls };
     const control = { ...formControls[formControlName] };
 
     control.value = event.target.value;
     control.touched = true;
-    control.valid = this.controlValidation(control.value, control.validation);
+    control.valid = validate(control.value, control.validation);
 
     formControls[formControlName] = control;
 
     this.setState({
       formControls,
+      isFormValid: validateForm(formControls),
     });
   };
 
@@ -86,15 +90,13 @@ export default class QuizCreator extends Component {
   addQuizHandler = () => {};
 
   selectChangeHandler = (event) => {
-    console.log(event.target.value);
-
     this.setState({
       rightAnswer: +event.target.value,
     });
   };
 
   render() {
-    console.log(this.state.formControls);
+    // console.log(this.state.formControls);
     return (
       <div className={classes.QuizCreator}>
         <div>

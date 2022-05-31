@@ -9,7 +9,7 @@ const Select = (props) => {
       <select id={htmlFor} value={props.value} onChange={props.onChange}>
         {props.options.map((option, index) => {
           return (
-            <option key={option.value + index} value={option.value}>
+            <option key={`${option.value} + ${index}`} value={option.value}>
               {option.text}
             </option>
           );
