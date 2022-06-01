@@ -49,17 +49,16 @@ export default class QuizCreator extends Component {
         let control = this.state.formControls[formControlName];
 
         return (
-          <React.Fragment>
+          <React.Fragment key={formControlName + index}>
             <Input
-              key={`${control}+${index}`}
               label={control.label}
               touched={control.touched}
               valid={control.valid}
               value={control.value}
-              errorMessage={control.errorMessage}
+              shouldValidate={control.errorMessage}
               validation={!!control.validation}
               onChange={(event) => {
-                this.inputChangeHandler(event, formControlName);
+                this.inputChangeHandler(event.target.value, formControlName);
               }}
             />
             {index === 0 ? <hr /> : null}
@@ -69,11 +68,11 @@ export default class QuizCreator extends Component {
     );
   };
 
-  inputChangeHandler = (event, formControlName) => {
+  inputChangeHandler = (value, formControlName) => {
     const formControls = { ...this.state.formControls };
     const control = { ...formControls[formControlName] };
 
-    control.value = event.target.value;
+    control.value = value;
     control.touched = true;
     control.valid = validate(control.value, control.validation);
 
